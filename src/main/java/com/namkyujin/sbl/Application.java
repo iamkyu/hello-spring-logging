@@ -10,6 +10,12 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 public class Application {
+    static final String ERROR_MESSAGE = "Hello World1";
+    static final String WARN_MESSAGE = "Hello World2";
+    static final String INFO_MESSAGE = "Hello World3";
+    static final String DEBUG_MESSAGE = "Hello World4";
+    static final String TRACE_MESSAGE = "Hello World5";
+
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     public static void main(String[] args) {
@@ -18,11 +24,11 @@ public class Application {
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        LOG.error("Hello World1");
-        LOG.warn("Hello World2");
-        LOG.info("Hello World3");
+        LOG.error(ERROR_MESSAGE);
+        LOG.warn(WARN_MESSAGE);
+        LOG.info(INFO_MESSAGE);
 
-        LOG.debug("Hello World4");
-        LOG.trace("Hello World5");
+        LOG.debug(DEBUG_MESSAGE);
+        LOG.trace(TRACE_MESSAGE);
     }
 }
