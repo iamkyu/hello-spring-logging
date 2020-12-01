@@ -2,10 +2,11 @@ package com.namkyujin.sbl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
 
 @SpringBootApplication
@@ -16,19 +17,23 @@ public class Application {
     static final String DEBUG_MESSAGE = "Hello World4";
     static final String TRACE_MESSAGE = "Hello World5";
 
-    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-    @EventListener
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        LOG.error(ERROR_MESSAGE);
-        LOG.warn(WARN_MESSAGE);
-        LOG.info(INFO_MESSAGE);
+    @Component
+    public static class CustomApplicationRunner implements ApplicationRunner {
+        private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-        LOG.debug(DEBUG_MESSAGE);
-        LOG.trace(TRACE_MESSAGE);
+        @Override
+        public void run(ApplicationArguments args) throws Exception {
+            LOG.error(ERROR_MESSAGE);
+            LOG.warn(WARN_MESSAGE);
+            LOG.info(INFO_MESSAGE);
+
+            LOG.debug(DEBUG_MESSAGE);
+            LOG.trace(TRACE_MESSAGE);
+        }
     }
 }
